@@ -1,0 +1,55 @@
+table fact_region
+	lineageTag: 04417012-e59b-4dba-80d9-5dcb3929a5a7
+
+	measure 'Global Coverage' = CALCULATE(AVERAGE(fact_region[coverage_pct]), fact_region[unicef_region] = "Global")
+		lineageTag: 9442e8af-2c1e-425f-a96b-6336fb4efb53
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unicef_region
+		dataType: string
+		lineageTag: b4f37df5-14e7-4896-88ca-fef5f96dd4c8
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3848236e-aea0-423b-a315-180e072f9915
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column vaccine_code
+		dataType: string
+		lineageTag: 0c1eb5f5-ea2f-444b-884b-212d08ef0e8e
+		summarizeBy: none
+		sourceColumn: vaccine_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_pct
+		dataType: int64
+		formatString: 0
+		lineageTag: 39e22b6a-ed04-43c6-9bd3-2b83468e3daf
+		summarizeBy: sum
+		sourceColumn: coverage_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_region = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    fact_region_Sheet = Origen{[Item="fact_region",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(fact_region_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"unicef_region", type text}, {"year", Int64.Type}, {"vaccine_code", type text}, {"coverage_pct", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

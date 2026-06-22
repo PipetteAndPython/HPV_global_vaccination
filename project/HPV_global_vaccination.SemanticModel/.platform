@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "HPV_global_vaccination"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b9384ea5-0c5d-4251-9f2b-3f990c4f775d"
+  }
+}

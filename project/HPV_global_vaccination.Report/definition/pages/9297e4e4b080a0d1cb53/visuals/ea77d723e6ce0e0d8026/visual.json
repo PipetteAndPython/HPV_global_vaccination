@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "ea77d723e6ce0e0d8026",
+  "position": {
+    "x": 762,
+    "y": 375,
+    "z": 3000,
+    "height": 323,
+    "width": 518,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "gap_dropout_female"
+                    }
+                  },
+                  "Property": "country"
+                }
+              },
+              "queryRef": "gap_dropout_female.country",
+              "nativeQueryRef": "country",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "gap_dropout_female"
+                        }
+                      },
+                      "Property": "dropout"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(gap_dropout_female.dropout)",
+              "nativeQueryRef": "Promedio de dropout"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "gap_dropout_female"
+                      }
+                    },
+                    "Property": "dropout"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

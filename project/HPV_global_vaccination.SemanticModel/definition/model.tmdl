@@ -1,0 +1,28 @@
+model Model
+	culture: es-AR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_calendar","dim_country","dim_indicator","dim_region","fact_country","fact_region","gap_dropout_female","gap_dropout_male","gap_gender_cohort","gap_gender_routine","kpi_global"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_calendar
+ref table dim_country
+ref table dim_indicator
+ref table dim_region
+ref table fact_country
+ref table fact_region
+ref table gap_dropout_female
+ref table gap_dropout_male
+ref table gap_gender_cohort
+ref table gap_gender_routine
+ref table kpi_global
+
+ref cultureInfo es-AR
+

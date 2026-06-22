@@ -1,0 +1,100 @@
+table gap_gender_routine
+	lineageTag: 6bdc2a39-e191-4f22-9bfb-fce0b5b16008
+
+	column iso3c
+		dataType: string
+		lineageTag: f5c560d6-f6df-43bb-b201-75afb0f1ccf8
+		summarizeBy: none
+		sourceColumn: iso3c
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 7022d883-341e-4d12-a540-c55aae16a7fa
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column unicef_region
+		dataType: string
+		lineageTag: e1a3a7a8-a300-40bd-b414-a5c162379d0e
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_name
+		dataType: string
+		lineageTag: 3976ba71-1634-4713-9c84-72be311cf57e
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ac35815-13c9-4c58-b2f8-2d416382b19d
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_female
+		dataType: int64
+		formatString: 0
+		lineageTag: b707290a-77fd-4222-bfd0-998d190b45ac
+		summarizeBy: sum
+		sourceColumn: coverage_female
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_male
+		dataType: int64
+		formatString: 0
+		lineageTag: e882daef-8dcd-46bb-b798-a07b2b9e6567
+		summarizeBy: sum
+		sourceColumn: coverage_male
+
+		annotation SummarizationSetBy = Automatic
+
+	column gap_female_minus_male
+		dataType: int64
+		formatString: 0
+		lineageTag: e3259ffc-199b-43d9-b600-1277ebb705dc
+		summarizeBy: sum
+		sourceColumn: gap_female_minus_male
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: f028e572-7202-44cd-99bc-ffd41f878e7a
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column dose
+		dataType: string
+		lineageTag: 4074eac0-b991-40ad-ab6a-3dbf47ca8dd2
+		summarizeBy: none
+		sourceColumn: dose
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gap_gender_routine = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    gap_gender_routine_Sheet = Origen{[Item="gap_gender_routine",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(gap_gender_routine_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"iso3c", type text}, {"country", type text}, {"unicef_region", type text}, {"region_name", type text}, {"year", Int64.Type}, {"coverage_female", Int64.Type}, {"coverage_male", Int64.Type}, {"gap_female_minus_male", Int64.Type}, {"metric", type text}, {"dose", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

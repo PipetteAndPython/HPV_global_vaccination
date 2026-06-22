@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "be4ac94f653708441055",
+  "position": {
+    "x": 1121.1015259887101,
+    "y": 334.821018777534,
+    "z": 3000,
+    "height": 94.682993014958384,
+    "width": 148.19946732776094,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_indicator"
+                    }
+                  },
+                  "Property": "dose"
+                }
+              },
+              "queryRef": "dim_indicator.dose",
+              "nativeQueryRef": "dose"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_indicator"
+                  }
+                },
+                "Property": "dose"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,71 @@
+table fact_country
+	lineageTag: 63f346e3-a49f-4585-bebd-f0315bc6666b
+
+	measure 'Average Coverage' = AVERAGE(fact_country[coverage_pct])
+		lineageTag: eb43f9b3-eb60-4960-a50b-54d348d8b3e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Countries with Data' = DISTINCTCOUNT(fact_country[iso3c])
+		formatString: 0
+		lineageTag: df272745-ef0f-41f5-87db-4850861b77c4
+
+	measure 'WHO 90% Target' = 90
+		formatString: 0
+		lineageTag: 65524545-6333-4361-8849-00c5f4cd8a3e
+
+	column iso3c
+		dataType: string
+		lineageTag: cca39eb5-9c28-4717-bf88-9ec1468803e6
+		summarizeBy: none
+		sourceColumn: iso3c
+
+		annotation SummarizationSetBy = Automatic
+
+	column unicef_region
+		dataType: string
+		lineageTag: a35e5c2d-d931-4192-b15c-77e1536f3f0d
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d1efd7c-c425-40d1-a266-402b1872287b
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column vaccine_code
+		dataType: string
+		lineageTag: 19181e83-5e05-437b-b970-9e76ec562716
+		summarizeBy: none
+		sourceColumn: vaccine_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_pct
+		dataType: int64
+		formatString: 0
+		lineageTag: f0a0217e-c831-4597-bb4d-d2d04cc29b73
+		summarizeBy: sum
+		sourceColumn: coverage_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_country = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    fact_country_Sheet = Origen{[Item="fact_country",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(fact_country_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"iso3c", type text}, {"unicef_region", type text}, {"year", Int64.Type}, {"vaccine_code", type text}, {"coverage_pct", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,50 @@
+table dim_region
+	lineageTag: 685984c3-0ba6-46df-82fd-af9ecadfd87c
+
+	column unicef_region
+		dataType: string
+		lineageTag: 0c9b02f9-0aee-4603-be3f-a79b059a9ba3
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_name
+		dataType: string
+		lineageTag: 463cd4a8-f28b-4dbd-b29d-fbf16e9b6699
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_global
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b7513915-1690-435f-a46e-1d9bf92413e2
+		summarizeBy: none
+		sourceColumn: is_global
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_programme
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6fc3ad2f-629a-4a5f-bd82-50f65a48da00
+		summarizeBy: none
+		sourceColumn: is_programme
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_region = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    dim_region_Sheet = Origen{[Item="dim_region",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_region_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"unicef_region", type text}, {"region_name", type text}, {"is_global", type logical}, {"is_programme", type logical}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

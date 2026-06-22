@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d16098f2b1c2400125c8",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 3000,
+    "height": 150.94390190790466,
+    "width": 279.93232717465958,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_country"
+                    }
+                  },
+                  "Property": "Average Coverage"
+                }
+              },
+              "queryRef": "fact_country.Average Coverage",
+              "nativeQueryRef": "Average Coverage"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_country"
+                  }
+                },
+                "Property": "Average Coverage"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

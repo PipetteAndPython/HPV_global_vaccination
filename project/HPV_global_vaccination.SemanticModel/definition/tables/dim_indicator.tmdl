@@ -1,0 +1,75 @@
+table dim_indicator
+	lineageTag: 8bcbd3dc-5e27-4a94-9ce4-f40db96f485e
+
+	column vaccine_code
+		dataType: string
+		lineageTag: a2aeabde-e857-4882-98cb-7910b8ef6720
+		summarizeBy: none
+		sourceColumn: vaccine_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column vaccine_name
+		dataType: string
+		lineageTag: 0c02a4d9-15fd-4453-af5e-071997c87bc2
+		summarizeBy: none
+		sourceColumn: vaccine_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column vaccine_description
+		dataType: string
+		lineageTag: 71218a2c-1830-4e7d-af22-1ef993826cdb
+		summarizeBy: none
+		sourceColumn: vaccine_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: cdc73b9a-75b5-44fe-b0ab-b77227673c9d
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column dose
+		dataType: string
+		lineageTag: 71a2146c-9847-4a6a-b4ba-d1b5ca2e10c8
+		summarizeBy: none
+		sourceColumn: dose
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 73c7305a-9a49-4b41-9f6f-017ac0ef1cc2
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex_code
+		dataType: string
+		lineageTag: 20bc3aa8-eb64-47e3-9ce3-4d5bf06dd5bb
+		summarizeBy: none
+		sourceColumn: sex_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_indicator = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    dim_indicator_Sheet = Origen{[Item="dim_indicator",Kind="Sheet"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(dim_indicator_Sheet,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}}),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Tipo cambiado", [PromoteAllScalars=true]),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"vaccine_code", type text}, {"vaccine_name", type text}, {"vaccine_description", type text}, {"metric", type text}, {"dose", type text}, {"sex", type text}, {"sex_code", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

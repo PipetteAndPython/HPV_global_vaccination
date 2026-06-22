@@ -1,0 +1,51 @@
+table dim_country
+	lineageTag: 32d6465c-6a81-49d2-a85f-6a51d5b07825
+
+	column iso3c
+		dataType: string
+		lineageTag: 85a39213-ec19-49ce-9bfa-b3c23dbcc5a6
+		summarizeBy: none
+		sourceColumn: iso3c
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: fb33392c-7524-44e2-a2c7-2651b967fe78
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column unicef_region
+		dataType: string
+		lineageTag: 8bd7b00d-b374-4d13-951b-14bae3e72dc9
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_name
+		dataType: string
+		lineageTag: 0d80e2a2-d3f6-4160-a63b-23c3e215dd1f
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_country = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    dim_country_Sheet = Origen{[Item="dim_country",Kind="Sheet"]}[Data],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(dim_country_Sheet,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Tipo cambiado", [PromoteAllScalars=true]),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"iso3c", type text}, {"country", type text}, {"unicef_region", type text}, {"region_name", type text}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

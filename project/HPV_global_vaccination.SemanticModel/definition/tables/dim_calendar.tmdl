@@ -1,0 +1,50 @@
+table dim_calendar
+	lineageTag: 25dff1d1-0ac0-4523-ba2c-0f978a28d32e
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f16ef06-dedb-476e-aaae-96aa73aae6f5
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column decade
+		dataType: string
+		lineageTag: f07305cc-d780-453e-b719-72d95e05f054
+		summarizeBy: none
+		sourceColumn: decade
+
+		annotation SummarizationSetBy = Automatic
+
+	column period
+		dataType: string
+		lineageTag: 1fddf889-71d1-4edd-9880-af1aaf13a280
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_latest
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3b801c19-766b-45f3-90b6-307a05b18560
+		summarizeBy: none
+		sourceColumn: is_latest
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendar = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    dim_calendar_Sheet = Origen{[Item="dim_calendar",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_calendar_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"year", Int64.Type}, {"decade", type text}, {"period", type text}, {"is_latest", type logical}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

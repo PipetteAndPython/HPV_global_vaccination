@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "942ad7d38eec46155353",
+  "position": {
+    "x": 1151.2903063702911,
+    "y": 0,
+    "z": 2000,
+    "height": 219.5547664114977,
+    "width": 128.98842526675489,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "gap_gender_routine"
+                    }
+                  },
+                  "Property": "unicef_region"
+                }
+              },
+              "queryRef": "gap_gender_routine.unicef_region",
+              "nativeQueryRef": "unicef_region"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

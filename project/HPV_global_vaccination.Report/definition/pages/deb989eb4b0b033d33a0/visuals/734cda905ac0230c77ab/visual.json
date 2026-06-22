@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "734cda905ac0230c77ab",
+  "position": {
+    "x": 934.47997453893709,
+    "y": 34.305432251796518,
+    "z": 1000,
+    "height": 273.07124072430025,
+    "width": 345.79875709810887,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "treemap",
+    "query": {
+      "queryState": {
+        "Group": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_country"
+                    }
+                  },
+                  "Property": "unicef_region"
+                }
+              },
+              "queryRef": "fact_country.unicef_region",
+              "nativeQueryRef": "unicef_region",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_country"
+                    }
+                  },
+                  "Property": "Average Coverage"
+                }
+              },
+              "queryRef": "fact_country.Average Coverage",
+              "nativeQueryRef": "Average Coverage"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

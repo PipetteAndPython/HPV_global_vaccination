@@ -1,0 +1,77 @@
+table kpi_global
+	lineageTag: bbc2a70c-edf9-4890-9c79-09241414c4d0
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5962c9d8-2d8c-4555-990d-076b39c9cab9
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: adff5b92-cd3d-45b2-b8bd-526b4c1b728d
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column dose
+		dataType: string
+		lineageTag: 93a21c49-14fa-41e0-bacb-e0db1e9c895b
+		summarizeBy: none
+		sourceColumn: dose
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: b698122a-28a9-4604-aea6-6c70dc877bdf
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_countries
+		dataType: int64
+		formatString: 0
+		lineageTag: e07eecc7-b4c5-483d-9dab-bdb129163aab
+		summarizeBy: sum
+		sourceColumn: n_countries
+
+		annotation SummarizationSetBy = Automatic
+
+	column median_coverage_pct
+		dataType: double
+		lineageTag: 6e2af2dc-cb0d-476f-a956-75f4799d166e
+		summarizeBy: sum
+		sourceColumn: median_coverage_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column global_coverage_pct
+		dataType: int64
+		formatString: 0
+		lineageTag: e8883dc7-1a75-4e9b-97a8-7ab4028264ad
+		summarizeBy: sum
+		sourceColumn: global_coverage_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition kpi_global = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    kpi_global_Sheet = Origen{[Item="kpi_global",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(kpi_global_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"year", Int64.Type}, {"metric", type text}, {"dose", type text}, {"sex", type text}, {"n_countries", Int64.Type}, {"median_coverage_pct", type number}, {"global_coverage_pct", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

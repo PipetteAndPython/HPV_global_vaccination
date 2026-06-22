@@ -1,0 +1,85 @@
+relationship AutoDetected_fe8cd059-64d5-4f15-99ec-a101b7c9238c
+	fromColumn: fact_country.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_a998edd6-49b7-4629-836b-1a6ee9b8106e
+	fromColumn: fact_region.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_f6c12772-29fd-4a59-a9f0-14b035df8588
+	fromColumn: gap_dropout_female.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_6c40b973-baa9-4ddc-83d3-6be6fd0284fc
+	fromColumn: gap_dropout_male.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_bb71e6ba-44ac-4950-8e8a-acc36c842e34
+	fromColumn: gap_gender_cohort.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_9f561f68-0c6b-4324-a7c6-ed493e55e403
+	fromColumn: gap_gender_routine.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_6dacb2c3-949b-4a10-90bb-2164ce5e1e2f
+	fromColumn: kpi_global.year
+	toColumn: dim_calendar.year
+
+relationship AutoDetected_0c093b38-4851-4b75-a570-dd8b08cb6e91
+	fromColumn: fact_country.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_6edb11a5-705b-4262-8b74-aceb0ab97476
+	fromColumn: fact_region.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_18458fb9-9e66-43a7-9d82-902dfb7ff1c7
+	fromColumn: gap_dropout_female.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_87d41e18-5d8c-4717-bc1f-63271398ef9c
+	fromColumn: gap_dropout_male.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_c711c9ed-a8ff-4e6e-9cb7-de85f4325b78
+	fromColumn: gap_gender_cohort.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_7f4c8cab-c5b3-4437-b332-21ffbe37ae9d
+	fromColumn: gap_gender_routine.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_77603be8-85bc-4ab6-bb37-37ff022be182
+	fromColumn: fact_country.iso3c
+	toColumn: dim_country.iso3c
+
+relationship AutoDetected_d2d8e1f7-4002-493c-87de-0939f0b1a158
+	fromColumn: gap_dropout_female.iso3c
+	toColumn: dim_country.iso3c
+
+relationship AutoDetected_53def578-f2b8-4df6-9d66-a6af62503c8c
+	fromColumn: gap_dropout_male.iso3c
+	toColumn: dim_country.iso3c
+
+relationship AutoDetected_c6736304-43cd-4e44-ac0f-320272de3503
+	fromColumn: gap_gender_cohort.iso3c
+	toColumn: dim_country.iso3c
+
+relationship AutoDetected_10dfcbd4-1579-4bd0-b72e-6f6a1748df03
+	fromColumn: gap_gender_routine.iso3c
+	toColumn: dim_country.iso3c
+
+relationship AutoDetected_5025c8db-70ed-4639-a014-c41a809896b1
+	isActive: false
+	fromColumn: dim_country.unicef_region
+	toColumn: dim_region.unicef_region
+
+relationship AutoDetected_6b1633d9-f633-4eb8-b46b-74c68e47b7cf
+	fromColumn: fact_country.vaccine_code
+	toColumn: dim_indicator.vaccine_code
+
+relationship AutoDetected_e50e42a0-ffce-4d83-ad7b-c77aebfea445
+	fromColumn: fact_region.vaccine_code
+	toColumn: dim_indicator.vaccine_code
+

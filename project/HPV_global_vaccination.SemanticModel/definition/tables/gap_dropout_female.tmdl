@@ -1,0 +1,100 @@
+table gap_dropout_female
+	lineageTag: a303b54f-f86b-4bb5-8bfe-d44df2f628dc
+
+	column iso3c
+		dataType: string
+		lineageTag: ba14fc8d-8127-4193-828b-df5ad8e43243
+		summarizeBy: none
+		sourceColumn: iso3c
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: a7407f58-2233-431a-ad62-aa082abe889a
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column unicef_region
+		dataType: string
+		lineageTag: 282a02cc-6040-4e13-a146-eb1039539f12
+		summarizeBy: none
+		sourceColumn: unicef_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_name
+		dataType: string
+		lineageTag: bc442a9c-cfc9-4056-b71b-f36c7388194a
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: daef0ae2-c755-4789-92b7-539f38f1d103
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 4f6d9126-8709-438c-8ef7-17727592f326
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 910122dd-dccb-4d08-a5b3-a9aadb67013b
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_dose1
+		dataType: int64
+		formatString: 0
+		lineageTag: fb3684d6-f68a-490d-9690-ffe6c31dd903
+		summarizeBy: sum
+		sourceColumn: coverage_dose1
+
+		annotation SummarizationSetBy = Automatic
+
+	column coverage_complete
+		dataType: int64
+		formatString: 0
+		lineageTag: f477b1bb-6ae6-43d4-9bcc-85adc84f515d
+		summarizeBy: sum
+		sourceColumn: coverage_complete
+
+		annotation SummarizationSetBy = Automatic
+
+	column dropout
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b3442bf-13a9-41b8-93c2-71711c28ebaf
+		summarizeBy: sum
+		sourceColumn: dropout
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gap_dropout_female = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Pc\Desktop\CURSOS\PYTHON\hpv_dashboard\powerbi_data\hpv_powerbi_tables.xlsx"), null, true),
+				    gap_dropout_female_Sheet = Origen{[Item="gap_dropout_female",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(gap_dropout_female_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"iso3c", type text}, {"country", type text}, {"unicef_region", type text}, {"region_name", type text}, {"year", Int64.Type}, {"metric", type text}, {"sex", type text}, {"coverage_dose1", Int64.Type}, {"coverage_complete", Int64.Type}, {"dropout", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
